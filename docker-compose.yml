@@ -1,0 +1,41 @@
+version: "3"
+services:
+  app:
+    build: .
+    command: bundle exec puma --config config/puma.rb --environment development
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD:
+      DATABASE_HOST: db
+    image: app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Gemfile:/app/Gemfile
+      - ./Gemfile.lock:/app/Gemfile.lock
+      - ./app:/app/app
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./db:/app/db
+      - ./lib:/app/lib
+      - ./public:/app/public
+      - ./Rakefile:/app/Rakefile
+      - ./scripts:/app/scripts
+      - ./test:/app/test
+  db:
+    container_name: db
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    image: mysql:8
+    volumes:
+      - data-volume:/var/lib/mysql
+  data:
+    container_name: data
+    image: busybox
+    volumes:
+      - data-volume:/data
+volumes:
+  data-volume:

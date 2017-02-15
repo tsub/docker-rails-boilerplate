@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password:
-  host: localhost
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
 
 development:
   <<: *default
@@ -50,5 +50,3 @@ test:
 production:
   <<: *default
   database: docker_rails_boilerplate_production
-  username: docker_rails_boilerplate
-  password: <%= ENV['DOCKER_RAILS_BOILERPLATE_DATABASE_PASSWORD'] %>

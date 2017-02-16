@@ -25,6 +25,7 @@ services:
       - ./Rakefile:/app/Rakefile
       - ./scripts:/app/scripts
       - ./test:/app/test
+      - bundle:/app/vendor/bundle
   db:
     container_name: db
     environment:
@@ -39,3 +40,4 @@ services:
       - data-volume:/data
 volumes:
   data-volume:
+  bundle:

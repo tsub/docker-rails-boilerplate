@@ -11,7 +11,7 @@ RUN apk add --update --no-cache \
         ${RAILS_DEPENDENCY} \
         tzdata && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
-    /usr/local/bin/bundle install --jobs=4 && \
+    /usr/local/bin/bundle install --jobs=4 --binstubs=vendor/bundle/bin --path=vendor/bundle && \
     apk del --purge \
         ${BUNDLE_DEPENDENCY}
 

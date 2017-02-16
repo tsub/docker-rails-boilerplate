@@ -33,11 +33,6 @@ services:
     image: mysql:8
     volumes:
       - data-volume:/var/lib/mysql
-  data:
-    container_name: data
-    image: busybox
-    volumes:
-      - data-volume:/data
 volumes:
   data-volume:
   bundle:

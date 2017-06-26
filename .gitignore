@@ -17,3 +17,14 @@
 .byebug_history
 
 /config/secrets.yml.key
+
+### https://raw.github.com/github/gitignore/8edb8a95c4c4b3dce71a378aaaf89275510b9cef/terraform.gitignore
+
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+

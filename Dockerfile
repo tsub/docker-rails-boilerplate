@@ -1,7 +1,7 @@
 FROM ruby:2.4.0-alpine
 
 ENV BUNDLE_DEPENDENCY="ruby-dev build-base" \
-    RAILS_DEPENDENCY="mysql-dev nodejs" \
+    RAILS_DEPENDENCY="mysql-dev nodejs tzdata" \
     EDITOR="vim"
 
 COPY Gemfile* /app/
@@ -10,7 +10,6 @@ WORKDIR /app
 RUN apk add --update --no-cache \
         ${BUNDLE_DEPENDENCY} \
         ${RAILS_DEPENDENCY} \
-        tzdata \
         # for wait-for-mysql.sh
         mysql-client \
         # for rails secrets:edit

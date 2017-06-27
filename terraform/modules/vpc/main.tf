@@ -83,11 +83,29 @@ resource "aws_default_route_table" "public" {
   }
 }
 
-resource "aws_route_table" "private" {
+resource "aws_route_table" "private-a" {
   vpc_id = "${aws_vpc.vpc.id}"
 
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = "${aws_nat_gateway.ngw-a.id}"
+  }
+
   tags {
-    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-private"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-private-a"
+  }
+}
+
+resource "aws_route_table" "private-c" {
+  vpc_id = "${aws_vpc.vpc.id}"
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = "${aws_nat_gateway.ngw-c.id}"
+  }
+
+  tags {
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-private-c"
   }
 }
 
@@ -103,10 +121,36 @@ resource "aws_route_table_association" "public-c" {
 
 resource "aws_route_table_association" "private-a" {
   subnet_id      = "${aws_subnet.private-a.id}"
-  route_table_id = "${aws_route_table.private.id}"
+  route_table_id = "${aws_route_table.private-a.id}"
 }
 
 resource "aws_route_table_association" "private-c" {
   subnet_id      = "${aws_subnet.private-c.id}"
-  route_table_id = "${aws_route_table.private.id}"
+  route_table_id = "${aws_route_table.private-c.id}"
+}
+
+#
+# EIP
+#
+
+resource "aws_eip" "eip-a" {
+  vpc = true
+}
+
+resource "aws_eip" "eip-c" {
+  vpc = true
+}
+
+#
+# NAT Gateway
+#
+
+resource "aws_nat_gateway" "ngw-a" {
+  allocation_id = "${aws_eip.eip-a.id}"
+  subnet_id     = "${aws_subnet.public-a.id}"
+}
+
+resource "aws_nat_gateway" "ngw-c" {
+  allocation_id = "${aws_eip.eip-c.id}"
+  subnet_id     = "${aws_subnet.public-a.id}"
 }

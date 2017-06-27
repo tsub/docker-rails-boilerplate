@@ -2,6 +2,9 @@ variable "common" {
   default = {
     default.region  = "ap-northeast-1"
     default.project = "tsub"
+
+    sandbox.region  = "ap-northeast-1"
+    sandbox.project = "sandbox-tsub"
   }
 }
 

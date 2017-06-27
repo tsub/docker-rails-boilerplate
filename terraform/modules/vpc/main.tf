@@ -3,10 +3,10 @@
 #
 
 resource "aws_vpc" "vpc" {
-  cidr_block = "${var.vpc["default.cidr_block"]}"
+  cidr_block = "${lookup(var.vpc, "${terraform.env}.cidr_block", var.vpc["default.cidr_block"])}"
 
   tags {
-    Name = "${var.common["default.project"]}"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.common["default.project"]}"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}"
   }
 }
 
@@ -28,41 +28,41 @@ resource "aws_internet_gateway" "igw" {
 
 resource "aws_subnet" "public-a" {
   vpc_id            = "${aws_vpc.vpc.id}"
-  cidr_block        = "${var.vpc["default.public-a"]}"
-  availability_zone = "${var.common["default.region"]}a"
+  cidr_block        = "${lookup(var.vpc, "${terraform.env}.public-a", var.vpc["default.public-a"])}"
+  availability_zone = "${lookup(var.common, "${terraform.env}.region", var.common["default.region"])}a"
 
   tags {
-    Name = "${var.common["default.project"]}-public-a"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-public-a"
   }
 }
 
 resource "aws_subnet" "public-c" {
   vpc_id            = "${aws_vpc.vpc.id}"
-  cidr_block        = "${var.vpc["default.public-c"]}"
-  availability_zone = "${var.common["default.region"]}c"
+  cidr_block        = "${lookup(var.vpc, "${terraform.env}.public-c", var.vpc["default.public-c"])}"
+  availability_zone = "${lookup(var.common, "${terraform.env}.region", var.common["default.region"])}c"
 
   tags {
-    Name = "${var.common["default.project"]}-public-c"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-public-c"
   }
 }
 
 resource "aws_subnet" "private-a" {
   vpc_id            = "${aws_vpc.vpc.id}"
-  cidr_block        = "${var.vpc["default.private-a"]}"
-  availability_zone = "${var.common["default.region"]}a"
+  cidr_block        = "${lookup(var.vpc, "${terraform.env}.private-a", var.vpc["default.private-a"])}"
+  availability_zone = "${lookup(var.common, "${terraform.env}.region", var.common["default.region"])}a"
 
   tags {
-    Name = "${var.common["default.project"]}-private-a"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-private-a"
   }
 }
 
 resource "aws_subnet" "private-c" {
   vpc_id            = "${aws_vpc.vpc.id}"
-  cidr_block        = "${var.vpc["default.private-c"]}"
-  availability_zone = "${var.common["default.region"]}c"
+  cidr_block        = "${lookup(var.vpc, "${terraform.env}.private-c", var.vpc["default.private-c"])}"
+  availability_zone = "${lookup(var.common, "${terraform.env}.region", var.common["default.region"])}c"
 
   tags {
-    Name = "${var.common["default.project"]}-private-c"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-private-c"
   }
 }
 
@@ -79,7 +79,7 @@ resource "aws_route_table" "public" {
   }
 
   tags {
-    Name = "${var.common["default.project"]}-public"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-public"
   }
 }
 
@@ -87,7 +87,7 @@ resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.common["default.project"]}-private"
+    Name = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}-private"
   }
 }
 

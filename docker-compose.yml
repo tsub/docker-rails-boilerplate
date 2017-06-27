@@ -6,6 +6,7 @@ services:
     container_name: app
     depends_on:
       - db
+    entrypoint: .docker/wait-for-mysql.sh db
     environment:
       DATABASE_USERNAME: root
       DATABASE_PASSWORD:

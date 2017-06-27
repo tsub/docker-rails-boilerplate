@@ -11,6 +11,8 @@ RUN apk add --update --no-cache \
         ${BUNDLE_DEPENDENCY} \
         ${RAILS_DEPENDENCY} \
         tzdata \
+        # for wait-for-mysql.sh
+        mysql-client \
         # for rails secrets:edit
         vim && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \

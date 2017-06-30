@@ -1,0 +1,31 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: docker:17.03-git
+    working_directory: ~/docker-rails-boilerplate
+    branches:
+      only:
+        - master
+    steps:
+      - run:
+          name: Setup requirements
+          command: |
+            apk update
+
+            # Required by CircleCI 2.0: https://circleci.com/docs/2.0/custom-images/#required-tools
+            apk add --no-progress openssh-client tar gzip unzip ca-certificates
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build a Docker image
+          command: docker build -t docker-rails-boilerplate .
+      - run:
+          name: Push a Docker image
+          command: |
+            TAG="latest"
+
+            docker tag docker-rails-boilerplate tsub/docker-rails-boilerplate:$TAG
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            docker push tsub/docker-rails-boilerplate

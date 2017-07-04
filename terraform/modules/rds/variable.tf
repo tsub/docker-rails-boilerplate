@@ -2,7 +2,7 @@ variable "common" {
   default = {}
 }
 
-variable "ecs" {
+variable "rds" {
   default = {}
 }
 
@@ -10,6 +10,6 @@ variable "vpc" {
   default = {}
 }
 
-variable "rds" {
+variable "ecs" {
   default = {}
 }

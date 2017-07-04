@@ -21,6 +21,18 @@
             {
                 "name": "RAILS_MASTER_KEY",
                 "value": "${rails_master_key}"
+            },
+            {
+                "name": "DATABASE_HOST",
+                "value": "${database_host}"
+            },
+            {
+                "name": "DATABASE_USERNAME",
+                "value": "${database_username}"
+            },
+            {
+                "name": "DATABASE_PASSWORD",
+                "value": "${database_password}"
             }
         ],
         "logConfiguration": {

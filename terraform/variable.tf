@@ -37,3 +37,19 @@ variable "ecs" {
     default.rails_master_key = ""
   }
 }
+
+variable "rds" {
+  default = {
+    default.instance_class  = "db.t2.small"
+    default.database_name   = "docker_rails_boilerplate_development"
+    default.master_username = ""
+    default.master_password = ""
+    default.count           = 2
+
+    sandbox.instance_class  = "db.t2.small"
+    sandbox.database_name   = "docker_rails_boilerplate_development"
+    sandbox.master_username = ""
+    sandbox.master_password = ""
+    sandbox.count           = 2
+  }
+}

@@ -207,9 +207,12 @@ data "template_file" "app" {
   template = "${file("${path.module}/templates/task_definitions/app.json.tpl")}"
 
   vars {
-    cluster          = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}"
-    region           = "${lookup(var.common, "${terraform.env}.region", var.common["default.region"])}"
-    rails_master_key = "${lookup(var.ecs, "${terraform.env}.rails_master_key", var.ecs["default.rails_master_key"])}"
+    cluster           = "${lookup(var.common, "${terraform.env}.project", var.common["default.project"])}"
+    region            = "${lookup(var.common, "${terraform.env}.region", var.common["default.region"])}"
+    rails_master_key  = "${lookup(var.ecs, "${terraform.env}.rails_master_key", var.ecs["default.rails_master_key"])}"
+    database_host     = "${var.rds["endpoint"]}"
+    database_username = "${var.rds["master_username"]}"
+    database_password = "${var.rds["master_password"]}"
   }
 }
 

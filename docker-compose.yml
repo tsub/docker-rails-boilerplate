@@ -11,6 +11,7 @@ services:
       DATABASE_USERNAME: root
       DATABASE_PASSWORD:
       DATABASE_HOST: db
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     image: app
     ports:
       - "3000:3000"

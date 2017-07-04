@@ -16,7 +16,10 @@ RUN apk add --update --no-cache \
         vim && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     /usr/local/bin/bundle install --jobs=4 --binstubs=vendor/bundle/bin --path=vendor/bundle && \
+    npm install -g yarn && \
     apk del --purge \
         ${BUNDLE_DEPENDENCY}
 
 COPY . /app/
+
+RUN rake assets:precompile
